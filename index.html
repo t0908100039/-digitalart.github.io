@@ -3,23 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>何天碩 HO TAIN SHUO - 作品集</title>
+    <title>劉齊 - 自我介紹</title>
     <style>
         /* 基礎設定 */
         body { 
             margin: 0; 
-            background-color: #363636; /* 圖3的深灰色底 */
-            color: #ffffff; /* 整體文字純白色 */
+            background-color: #363636; /* 深灰底色 */
+            color: #ffffff; 
             font-family: 'Arial', sans-serif; 
-            /* 右邊空出 200px 的位置給導覽列，內容才不會被壓住 */
             padding-right: 200px; 
         }
 
         /* 左上角 Logo */
-        header { 
-            padding: 30px 50px; 
-        }
-        
+        header { padding: 30px 50px; }
         .logo { 
             font-size: 28px; 
             font-family: 'Arial Black', Impact, sans-serif; 
@@ -31,68 +27,115 @@
         /* 右側垂直滿版導覽列 */
         nav { 
             position: fixed; 
-            top: 0; 
-            right: 0; 
-            width: 200px; 
-            height: 100vh; 
-            background-color: #222222; /* 側邊欄稍微深一點，增加立體感 */
-            display: flex; 
-            flex-direction: column; 
+            top: 0; right: 0; 
+            width: 200px; height: 100vh; 
+            background-color: #222222; 
+            display: flex; flex-direction: column; 
             border-left: 2px solid #111;
         }
 
-        /* 選單按鈕設定 */
         nav a { 
-            flex: 1; /* 5個按鈕平分高度，剛好佔滿畫面 */
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            color: #ffffff; 
-            text-decoration: none; 
-            font-family: 'Arial Black', Impact, sans-serif; 
-            font-size: 20px; 
-            letter-spacing: 2px; 
+            flex: 1; display: flex; align-items: center; justify-content: center; 
+            color: #ffffff; text-decoration: none; 
+            font-family: 'Arial Black', Impact, sans-serif; font-size: 20px; letter-spacing: 2px; 
             transition: background-color 0.3s, color 0.3s; 
             border-bottom: 1px solid #333; 
         }
+        nav a:last-child { border-bottom: none; }
 
-        nav a:last-child {
-            border-bottom: none;
-        }
-
-        /* 滑鼠移過去與「目前所在頁面」的樣式 (圖2的純黃色) */
+        /* 導覽列選中狀態 (純黃色配黑字) */
         nav a:hover, nav a.active { 
-            background-color: #FFFF00; /* 圖2的黃色 */
-            color: #000000; /* 黃底配黑字才清楚，極具視覺張力 */
+            background-color: #FFFF00; 
+            color: #000000; 
         }
 
         /* 主要內容區塊 */
         main { 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            padding: 50px 20px; 
-            gap: 40px; 
+            display: flex; flex-direction: column; align-items: center; 
+            padding: 50px 20px; gap: 40px; 
+        }
+
+        /* ================= 新增：關於我卡片排版 ================= */
+        .about-card {
+            display: flex; /* 讓照片和文字左右並排 */
+            align-items: center; /* 垂直置中 */
+            gap: 40px; /* 照片與文字的距離 */
+            background-color: #222222; /* 卡片底色 */
+            padding: 40px;
+            border-radius: 15px; /* 圓角 */
+            max-width: 800px; /* 限制最大寬度 */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); /* 增加立體陰影 */
+            border-left: 5px solid #FFFF00; /* 左邊加一條黃色裝飾線 */
+        }
+
+        /* 大頭貼外框設定 */
+        .profile-pic {
+            flex-shrink: 0; /* 防止照片被擠壓 */
+            width: 200px;
+            height: 200px;
+            border-radius: 50%; /* 變成正圓形 */
+            overflow: hidden;
+            border: 4px solid #FFFF00; /* 照片外框顏色 */
+        }
+
+        /* 大頭貼圖片本身 */
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 確保照片填滿圓框且不變形 */
+        }
+
+        /* 文字區塊設定 */
+        .about-text {
+            text-align: left;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+        .about-text h3 {
+            color: #FFFF00; /* 名字用黃色凸顯 */
+            font-size: 28px;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        .about-text h4 {
+            color: #aaaaaa; /* 職稱用淺灰色 */
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 18px;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo">何天碩 HO TAIN SHUO</div> 
+        <div class="logo">劉齊</div> 
     </header>
 
     <nav>
-        <a href="index.html" class="active">ABOUT</a>
-        <a href="ta.html">TA</a>
-        <a href="game.html">GAME</a> 
-        <a href="3d2d.html">3D / 2D</a>
+        <a href="index.html" class="active">SHUO</a>
+        <a href="illustration.html">ILLUSTRATION</a>
+        <a href="animation.html">ANIMATION</a> 
         <a href="others.html">OTHERS</a>
     </nav>
 
     <main>
-        <h2 style="font-family: 'Arial Black'; font-size: 36px; margin-bottom: 10px;">自我介紹 ABOUT</h2>
-        <p>這是你的主頁面，未來可以在這裡放你的自我介紹文字與照片。</p>
+        <h2 style="font-family: 'Arial Black'; font-size: 36px; margin-bottom: 10px;">ABOUT ME</h2>
+        
+        <div class="about-card">
+            
+            <div class="profile-pic">
+                <img src="profile.jpg" alt="大頭貼">
+            </div>
+
+            <div class="about-text">
+                <h3>劉齊 (SHUO)</h3>
+                <h4>3D Technical Artist / 數位媒體創作者</h4>
+                <p>你好！我是劉齊。我專注於 3D 建模與非真實感渲染 (NPR) 技術的開發。熱衷於將藝術美感與技術邏輯結合，創造出獨特的視覺體驗。</p>
+                <p>📍 <b>技能專長：</b> Blender、Shader 節點邏輯、角色拓撲、影片剪輯</p>
+                <p>✉️ <b>聯絡方式：</b> your.email@gmail.com</p>
+            </div>
+
+        </div>
     </main>
 
 </body>
