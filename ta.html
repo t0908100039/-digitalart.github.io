@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>劉齊 - TA技術美術</title>
+    <style>
+        /* 基礎設定 (與首頁完全相同，保持版面一致) */
+        body { 
+            margin: 0; 
+            background-color: #363636; 
+            color: #ffffff; 
+            font-family: 'Arial', sans-serif; 
+            padding-right: 200px; 
+        }
+
+        /* 左上角 Logo */
+        header { padding: 30px 50px; }
+        .logo { 
+            font-size: 28px; 
+            font-family: 'Arial Black', Impact, sans-serif; 
+            font-weight: 900;
+            color: #ff3333; 
+            letter-spacing: 2px;
+        }
+
+        /* 右側垂直滿版導覽列 */
+        nav { 
+            position: fixed; 
+            top: 0; right: 0; 
+            width: 200px; height: 100vh; 
+            background-color: #222222; 
+            display: flex; flex-direction: column; 
+            border-left: 2px solid #111;
+        }
+
+        nav a { 
+            flex: 1; display: flex; align-items: center; justify-content: center; 
+            color: #ffffff; text-decoration: none; 
+            font-family: 'Arial Black', Impact, sans-serif; font-size: 20px; letter-spacing: 2px; 
+            transition: background-color 0.3s, color 0.3s; 
+            border-bottom: 1px solid #333; 
+        }
+        nav a:last-child { border-bottom: none; }
+
+        /* 導覽列選中狀態 (純黃色配黑字) */
+        nav a:hover, nav a.active { 
+            background-color: #FFFF00; 
+            color: #000000; 
+        }
+
+        /* 主要內容區塊 */
+        main { 
+            display: flex; flex-direction: column; align-items: center; 
+            padding: 50px 20px; gap: 40px; 
+        }
+
+        /* ================= 展示卡片排版 (影片或圖片用) ================= */
+        .showcase-card {
+            background-color: #222222; 
+            padding: 30px;
+            border-radius: 15px; 
+            width: 100%;
+            max-width: 900px; /* 限制影片區塊最大寬度 */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+            border-left: 5px solid #FFFF00; 
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .showcase-title {
+            color: #FFFF00;
+            font-size: 28px;
+            font-family: 'Arial Black', sans-serif;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        /* 讓 YouTube 影片能自適應卡片寬度 */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 比例 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">劉齊</div> 
+    </header>
+
+    <nav>
+        <a href="index.html">自我介紹</a>
+        <a href="ta.html" class="active">TA</a>
+        <a href="game.html">Game</a> 
+        <a href="3d2d.html">3D2D</a>
+        <a href="more.html">More</a>
+    </nav>
+
+    <main>
+        
+        <div class="showcase-card">
+            <h3 class="showcase-title">NPR渲染</h3>
+            
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/qj91-kApEWw" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        </main>
+
+</body>
+</html>
