@@ -1,1 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>何天碩 HO TAIN SHUO - 作品集</title>
+    <style>
+        /* 基礎設定 */
+        body { 
+            margin: 0; 
+            background-color: #363636; /* 圖3的深灰色底 */
+            color: #ffffff; /* 整體文字純白色 */
+            font-family: 'Arial', sans-serif; 
+            /* 右邊空出 200px 的位置給導覽列，內容才不會被壓住 */
+            padding-right: 200px; 
+        }
 
+        /* 左上角 Logo */
+        header { 
+            padding: 30px 50px; 
+        }
+        
+        .logo { 
+            font-size: 28px; 
+            font-family: 'Arial Black', Impact, sans-serif; 
+            font-weight: 900;
+            color: #ff3333; 
+            letter-spacing: 2px;
+        }
+
+        /* 右側垂直滿版導覽列 */
+        nav { 
+            position: fixed; 
+            top: 0; 
+            right: 0; 
+            width: 200px; 
+            height: 100vh; 
+            background-color: #222222; /* 側邊欄稍微深一點，增加立體感 */
+            display: flex; 
+            flex-direction: column; 
+            border-left: 2px solid #111;
+        }
+
+        /* 選單按鈕設定 */
+        nav a { 
+            flex: 1; /* 5個按鈕平分高度，剛好佔滿畫面 */
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: #ffffff; 
+            text-decoration: none; 
+            font-family: 'Arial Black', Impact, sans-serif; 
+            font-size: 20px; 
+            letter-spacing: 2px; 
+            transition: background-color 0.3s, color 0.3s; 
+            border-bottom: 1px solid #333; 
+        }
+
+        nav a:last-child {
+            border-bottom: none;
+        }
+
+        /* 滑鼠移過去與「目前所在頁面」的樣式 (圖2的純黃色) */
+        nav a:hover, nav a.active { 
+            background-color: #FFFF00; /* 圖2的黃色 */
+            color: #000000; /* 黃底配黑字才清楚，極具視覺張力 */
+        }
+
+        /* 主要內容區塊 */
+        main { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            padding: 50px 20px; 
+            gap: 40px; 
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">何天碩 HO TAIN SHUO</div> 
+    </header>
+
+    <nav>
+        <a href="index.html" class="active">ABOUT</a>
+        <a href="ta.html">TA</a>
+        <a href="game.html">GAME</a> 
+        <a href="3d2d.html">3D / 2D</a>
+        <a href="others.html">OTHERS</a>
+    </nav>
+
+    <main>
+        <h2 style="font-family: 'Arial Black'; font-size: 36px; margin-bottom: 10px;">自我介紹 ABOUT</h2>
+        <p>這是你的主頁面，未來可以在這裡放你的自我介紹文字與照片。</p>
+    </main>
+
+</body>
+</html>
