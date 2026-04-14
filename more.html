@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>劉齊 - More 更多作品</title>
+    <style>
+        /* ================= 基礎設定 ================= */
+        body { 
+            margin: 0; 
+            background-color: #363636; 
+            color: #ffffff; 
+            font-family: 'Arial', sans-serif; 
+            padding-right: 200px; 
+        }
+
+        /* 左上角 Logo */
+        header { padding: 30px 50px; }
+        .logo { 
+            font-size: 28px; 
+            font-family: 'Arial Black', Impact, sans-serif; 
+            font-weight: 900;
+            color: #ff3333; 
+            letter-spacing: 2px;
+        }
+
+        /* 右側垂直滿版導覽列 */
+        nav { 
+            position: fixed; 
+            top: 0; right: 0; 
+            width: 200px; height: 100vh; 
+            background-color: #222222; 
+            display: flex; flex-direction: column; 
+            border-left: 2px solid #111;
+        }
+
+        nav a { 
+            flex: 1; display: flex; align-items: center; justify-content: center; 
+            color: #ffffff; text-decoration: none; 
+            font-family: 'Arial Black', Impact, sans-serif; font-size: 20px; letter-spacing: 2px; 
+            transition: background-color 0.3s, color 0.3s; 
+            border-bottom: 1px solid #333; 
+        }
+        nav a:last-child { border-bottom: none; }
+
+        /* 導覽列選中狀態 */
+        nav a:hover, nav a.active { 
+            background-color: #FFFF00; 
+            color: #000000; 
+        }
+
+        /* 主要內容區塊 */
+        main { 
+            display: flex; flex-direction: column; align-items: center; 
+            padding: 50px 20px; gap: 40px; 
+        }
+
+        /* 展示卡片排版 */
+        .showcase-card {
+            background-color: #222222; 
+            padding: 30px;
+            border-radius: 15px; 
+            width: 100%;
+            max-width: 900px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+            border-left: 5px solid #FFFF00; 
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .showcase-title {
+            color: #FFFF00;
+            font-size: 28px;
+            font-family: 'Arial Black', sans-serif;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        /* 新增：區塊文字說明的樣式 */
+        .showcase-desc {
+            color: #cccccc;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-top: -10px; /* 稍微往上拉近標題的距離 */
+            margin-bottom: 5px;
+        }
+
+        /* 圖片畫廊網格設計 */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .gallery-grid img {
+            width: 100%;
+            height: 200px; /* 固定高度讓縮圖整齊 */
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid #444;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer; /* 滑鼠移過去會變成手指圖示，提示可以點擊 */
+        }
+
+        .gallery-grid img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 255, 0, 0.4);
+            z-index: 1;
+        }
+
+        /* ================= 點擊放大的燈箱效果 (Lightbox) ================= */
+        .lightbox {
+            display: none; /* 預設隱藏 */
+            position: fixed;
+            z-index: 9999;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.85); /* 半透明黑背景 */
+            backdrop-filter: blur(5px); /* 背景微微模糊效果，更有質感 */
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 放大後的圖片本身 */
+        .lightbox-content {
+            max-width: 85%;
+            max-height: 85vh;
+            border: 3px solid #FFFF00; /* 配合主題的黃色邊框 */
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            border-radius: 8px;
+            object-fit: contain;
+        }
+
+        /* 關閉按鈕與左右箭頭 */
+        .lightbox-close {
+            position: absolute;
+            top: 20px; right: 40px;
+            color: #fff;
+            font-size: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .lightbox-prev, .lightbox-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fff;
+            font-size: 60px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 20px;
+            user-select: none;
+            transition: 0.3s;
+        }
+
+        .lightbox-prev { left: 5%; }
+        .lightbox-next { right: 5%; }
+
+        /* 按鈕懸停效果變黃色 */
+        .lightbox-close:hover, .lightbox-prev:hover, .lightbox-next:hover {
+            color: #FFFF00;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">劉齊</div> 
+    </header>
+
+    <nav>
+        <a href="index.html">自我介紹</a>
+        <a href="ta.html">TA</a>
+        <a href="game.html">Game</a> 
+        <a href="3d2d.html">3D2D</a>
+        <a href="more.html" class="active">More</a> 
+    </nav>
+
+    <main>
+        
+        <div class="showcase-card">
+            <h3 class="showcase-title">AI 區</h3>
+            <p class="showcase-desc">使用 ComfyUI 本地部署製作的可用於 3D 貼圖，與線上 AI 工具不同的是沒有版權與費用的考量。</p>
+            
+            <div class="gallery-grid" id="ai-gallery">
+                <img src="ai1.png" alt="ai1">
+                <img src="ai2.png" alt="ai2">
+                <img src="ai3.png" alt="ai3">
+                <img src="ai4.png" alt="ai4">
+                <img src="ai5.png" alt="ai5">
+                <img src="ai6.png" alt="ai6">
+                <img src="ai7.png" alt="ai7">
+                <img src="ai8.png" alt="ai8">
+                <img src="ai9.png" alt="ai9">
+                <img src="ai10.png" alt="ai10">
+                <img src="ai11.png" alt="ai11">
+                <img src="ai12.png" alt="ai12">
+                <img src="ai13.png" alt="ai13">
+            </div>
+        </div>
+
+    </main>
+
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close" id="lightbox-close">&times;</span>
+        <span class="lightbox-prev" id="lightbox-prev">&#10094;</span>
+        <img class="lightbox-content" id="lightbox-img" src="">
+        <span class="lightbox-next" id="lightbox-next">&#10095;</span>
+    </div>
+
+    <script>
+        // 抓取網頁上的元素
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const closeBtn = document.getElementById('lightbox-close');
+        const prevBtn = document.getElementById('lightbox-prev');
+        const nextBtn = document.getElementById('lightbox-next');
+        
+        // 抓取 ai-gallery 裡面的所有圖片
+        const images = document.querySelectorAll('#ai-gallery img');
+        let currentIndex = 0; // 紀錄現在正在看哪一張圖的號碼
+
+        // 給每張縮圖加上「點擊」事件
+        images.forEach((img, index) => {
+            img.addEventListener('click', () => {
+                lightbox.style.display = 'flex'; // 顯示燈箱
+                lightboxImg.src = img.src;       // 把大圖的來源換成被點擊的縮圖來源
+                currentIndex = index;            // 記下現在的順序
+            });
+        });
+
+        // 切換圖片的函數
+        function showImage(index) {
+            // 如果超過最後一張，就回到第一張；如果小於第一張，就跳到最後一張
+            if (index >= images.length) currentIndex = 0;
+            if (index < 0) currentIndex = images.length - 1;
+            
+            // 換圖
+            lightboxImg.src = images[currentIndex].src;
+        }
+
+        // 上一張、下一張按鈕功能
+        prevBtn.addEventListener('click', () => {
+            currentIndex--;
+            showImage(currentIndex);
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentIndex++;
+            showImage(currentIndex);
+        });
+
+        // 點擊右上角的 X 關閉
+        closeBtn.addEventListener('click', () => {
+            lightbox.style.display = 'none';
+        });
+
+        // 點擊圖片以外的黑色背景也可以關閉
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                lightbox.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
