@@ -95,7 +95,7 @@
             border: none;
         }
 
-        /* ================= 圖片畫廊網格設計 ================= */
+        /* ================= 圖片畫廊網格設計 (通用) ================= */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* 自動排版，每張圖最小250px */
@@ -103,21 +103,106 @@
             margin-top: 10px;
         }
 
-        .gallery-grid img {
+        /* 預設圖片樣式 (包含滑鼠提示) */
+        .gallery-grid img, .char-group img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             border-radius: 8px;
             border: 1px solid #444;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer; /* 提示可以點擊放大 */
         }
 
-        /* 滑鼠懸停圖片放大效果 */
-        .gallery-grid img:hover {
+        /* 滑鼠懸停圖片放大效果 (維持原樣) */
+        .gallery-grid img:hover, .char-group img:hover {
             transform: scale(1.03);
             box-shadow: 0 5px 15px rgba(255, 255, 0, 0.3);
             z-index: 1;
         }
+
+        /* ================= Blender建模區 特殊排版 (類似圖2的角色群組) ================= */
+        /* 為不同的角色建立群組，每個角色一排 */
+        .char-showcase-container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px; /* 角色群組之間的間距 */
+            margin-top: 10px;
+        }
+
+        .char-group {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 每個角色3張圖排成一列 */
+            gap: 10px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #444; /* 角色之間的分割線 */
+        }
+
+        .char-group:last-child {
+            border-bottom: none; /* 最後一個角色不需要分割線 */
+            padding-bottom: 0;
+        }
+
+        .char-group img {
+            height: 200px; /* 固定高度讓排版整齊，类似图2效果 */
+        }
+
+        /* ================= 點擊放大的燈箱效果 (Lightbox) ================= */
+        .lightbox {
+            display: none; /* 預設隱藏 */
+            position: fixed;
+            z-index: 9999; /* 確保在最上層 */
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.9); /* 深色半透明背景 */
+            backdrop-filter: blur(5px); /* 背景微微模糊 */
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        /* 放大後的圖片 */
+        .lightbox-content {
+            max-width: 85%;
+            max-height: 85vh;
+            border: 3px solid #FFFF00; /* 黃色邊框 */
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            border-radius: 8px;
+            object-fit: contain; /* 保持圖片比例 */
+        }
+
+        /* 關閉按鈕與左右箭頭 (黃色風格) */
+        .lightbox-close, .lightbox-prev, .lightbox-next {
+            position: absolute;
+            color: #ffffff; /* 預設白色 */
+            font-weight: bold;
+            cursor: pointer;
+            user-select: none;
+            transition: 0.3s;
+        }
+
+        /* X 關閉按鈕 */
+        .lightbox-close {
+            top: 20px; right: 40px;
+            font-size: 50px;
+        }
+
+        /* 左右箭頭 */
+        .lightbox-prev, .lightbox-next {
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 60px;
+            padding: 20px;
+        }
+
+        .lightbox-prev { left: 5%; }
+        .lightbox-next { right: 5%; }
+
+        /* 滑鼠懸停按鈕變黃色 */
+        .lightbox-close:hover, .lightbox-prev:hover, .lightbox-next:hover {
+            color: #FFFF00;
+        }
+
     </style>
 </head>
 <body>
@@ -130,7 +215,8 @@
         <a href="index.html">自我介紹</a>
         <a href="ta.html">TA</a>
         <a href="game.html">Game</a> 
-        <a href="3d2d.html" class="active">3D2D</a> <a href="more.html">More</a>
+        <a href="3d2d.html" class="active">3D2D</a> 
+        <a href="more.html">More</a>
     </nav>
 
     <main>
@@ -158,16 +244,26 @@
 
         <div class="showcase-card">
             <h3 class="showcase-title">Blender建模區</h3>
-            <div class="gallery-grid">
-                <img src="3dm3.png" alt="3dm3" loading="lazy">
-                <img src="3dm1.png" alt="3Dm1" loading="lazy">
-                <img src="3dm2.png" alt="3dm2" loading="lazy">
+            <div class="char-showcase-container lightbox-gallery" id="blender-gallery">
+                
+                <div class="char-group">
+                    <img src="3dm1.png" alt="角色1 主模型" loading="lazy">
+                    <img src="3dm2.png" alt="角色1 線框圖" loading="lazy">
+                    <img src="3dm3.png" alt="角色1 細節線框" loading="lazy">
+                </div>
+
+                <div class="char-group">
+                    <img src="2D_人物1.png" alt="角色2 2D概念圖" loading="lazy">
+                    <img src="3D_人物2.png" alt="角色2 3D模型姿態1" loading="lazy">
+                    <img src="3D_人物3.png" alt="角色2 3D模型姿態2/角度" loading="lazy">
+                </div>
+
             </div>
         </div>
 
         <div class="showcase-card">
             <h3 class="showcase-title">2D & 3D 靜態作品展示</h3>
-            <div class="gallery-grid">
+            <div class="gallery-grid lightbox-gallery" id="static-gallery">
                 <img src="2D_card.png" alt="2D_card" loading="lazy">
                 <img src="2D_stone.png" alt="2D_stone" loading="lazy">
                 <img src="2D_人物1.png" alt="2D_人物1" loading="lazy">
@@ -186,5 +282,95 @@
 
     </main>
 
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close" id="lightbox-close">&times;</span>
+        <span class="lightbox-prev" id="lightbox-prev">&#10094;</span>
+        <img class="lightbox-content" id="lightbox-img" src="">
+        <span class="lightbox-next" id="lightbox-next">&#10095;</span>
+    </div>
+
+    <script>
+        // 抓取燈箱相關的 HTML 元素
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const closeBtn = document.getElementById('lightbox-close');
+        const prevBtn = document.getElementById('lightbox-prev');
+        const nextBtn = document.getElementById('lightbox-next');
+        
+        // 用來儲存當前打開的畫廊內所有圖片的來源，以及當前圖片的索引
+        let currentGalleryImages = [];
+        let currentIndex = 0;
+
+        // 設置燈箱功能的函數
+        function setupLightboxGalleries() {
+            // 抓取所有指定了 lightbox-gallery 類別的畫廊區域
+            const galleries = document.querySelectorAll('.lightbox-gallery');
+            
+            galleries.forEach(gallery => {
+                // 抓取該區域內的所有圖片（包含角色群組內的圖片）
+                const imagesInGallery = gallery.querySelectorAll('img');
+                // 將 NodeList 轉換為陣列，方便之後處理
+                const imagesArray = Array.from(imagesInGallery);
+
+                imagesInGallery.forEach((img, index) => {
+                    // 給區域內的每張圖片加上點擊事件
+                    img.addEventListener('click', () => {
+                        // 點擊時，將「該畫廊區域」內的所有圖片來源存入陣列，實現「區域內切換」
+                        currentGalleryImages = imagesArray.map(image => image.src);
+                        currentIndex = index; // 記下現在是哪一張圖
+                        
+                        openLightbox(); // 打開燈箱
+                    });
+                });
+            });
+        }
+
+        // 打開燈箱並顯示當前圖片
+        function openLightbox() {
+            lightbox.style.display = 'flex'; // 顯示燈箱
+            updateLightboxImage(); // 換上當前的圖
+        }
+
+        // 更新燈箱內的圖片來源
+        function updateLightboxImage() {
+            lightboxImg.src = currentGalleryImages[currentIndex];
+        }
+
+        // 切換圖片的函數
+        function changeImage(direction) {
+            currentIndex += direction;
+            // 如果超過最後一張，回到第一張
+            if (currentIndex >= currentGalleryImages.length) {
+                currentIndex = 0;
+            }
+            // 如果小於第一張，跳到最後一張
+            if (currentIndex < 0) {
+                currentIndex = currentGalleryImages.length - 1;
+            }
+            updateLightboxImage(); // 更新圖片
+        }
+
+        // --- 事件監聽 ---
+
+        // 上一張、下一張按鈕
+        prevBtn.addEventListener('click', () => changeImage(-1));
+        nextBtn.addEventListener('click', () => changeImage(1));
+
+        // 關閉按鈕 (X)
+        closeBtn.addEventListener('click', () => {
+            lightbox.style.display = 'none';
+        });
+
+        // 點擊圖片以外的背景也可以關閉
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                lightbox.style.display = 'none';
+            }
+        });
+
+        // 初始化所有畫廊的燈箱功能
+        setupLightboxGalleries();
+
+    </script>
 </body>
 </html>
