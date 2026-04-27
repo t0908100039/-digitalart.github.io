@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>劉齊 - Game 遊戲專案</title>
     <style>
-        /* 基礎設定 (保持版面一致) */
+        /* ================= 基礎設定 (保持版面一致) ================= */
         body { 
             margin: 0; 
             background-color: #363636; 
@@ -55,13 +55,13 @@
             padding: 50px 20px; gap: 40px; 
         }
 
-        /* ================= 展示卡片排版 (影片或圖片用) ================= */
+        /* ================= 展示卡片排版 ================= */
         .showcase-card {
             background-color: #222222; 
             padding: 30px;
             border-radius: 15px; 
             width: 100%;
-            max-width: 900px; /* 限制影片區塊最大寬度 */
+            max-width: 900px; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
             border-left: 5px solid #FFFF00; 
             display: flex;
@@ -94,6 +94,82 @@
             height: 100%;
             border: none;
         }
+
+        /* ================= 圖片畫廊網格設計 (移植自 More 區) ================= */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .gallery-grid img {
+            width: 100%;
+            height: 200px; /* 固定高度讓縮圖整齊 */
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid #444;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .gallery-grid img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 255, 0, 0.4);
+            z-index: 1;
+        }
+
+        /* ================= 點擊放大的燈箱效果 ================= */
+        .lightbox {
+            display: none; 
+            position: fixed;
+            z-index: 9999;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.85); 
+            backdrop-filter: blur(5px); 
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox-content {
+            max-width: 85%;
+            max-height: 85vh;
+            border: 3px solid #FFFF00;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            border-radius: 8px;
+            object-fit: contain;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px; right: 40px;
+            color: #fff;
+            font-size: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .lightbox-prev, .lightbox-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fff;
+            font-size: 60px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 20px;
+            user-select: none;
+            transition: 0.3s;
+        }
+
+        .lightbox-prev { left: 5%; }
+        .lightbox-next { right: 5%; }
+
+        .lightbox-close:hover, .lightbox-prev:hover, .lightbox-next:hover {
+            color: #FFFF00;
+        }
     </style>
 </head>
 <body>
@@ -114,13 +190,77 @@
         
         <div class="showcase-card">
             <h3 class="showcase-title">Unity 專案展示</h3>
-            
             <div class="video-container">
                 <iframe src="https://www.youtube.com/embed/vydwwhxxXl8" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             </div>
         </div>
 
+        <div class="showcase-card">
+            <h3 class="showcase-title">UE5</h3>
+            <div class="gallery-grid">
+                <img src="game1.png" alt="game1">
+                <img src="game2.png" alt="game2">
+                <img src="game3.png" alt="game3">
+                <img src="game4.png" alt="game4">
+                <img src="game5.png" alt="game5">
+            </div>
+        </div>
+
     </main>
 
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close" id="lightbox-close">&times;</span>
+        <span class="lightbox-prev" id="lightbox-prev">&#10094;</span>
+        <img class="lightbox-content" id="lightbox-img" src="">
+        <span class="lightbox-next" id="lightbox-next">&#10095;</span>
+    </div>
+
+    <script>
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const closeBtn = document.getElementById('lightbox-close');
+        const prevBtn = document.getElementById('lightbox-prev');
+        const nextBtn = document.getElementById('lightbox-next');
+        
+        // 抓取所有的展示圖片
+        const images = document.querySelectorAll('.gallery-grid img');
+        let currentIndex = 0;
+
+        if (images.length > 0) {
+            images.forEach((img, index) => {
+                img.addEventListener('click', () => {
+                    lightbox.style.display = 'flex';
+                    lightboxImg.src = img.src;
+                    currentIndex = index;
+                });
+            });
+
+            function showImage(index) {
+                if (index >= images.length) currentIndex = 0;
+                if (index < 0) currentIndex = images.length - 1;
+                lightboxImg.src = images[currentIndex].src;
+            }
+
+            prevBtn.addEventListener('click', () => {
+                currentIndex--;
+                showImage(currentIndex);
+            });
+
+            nextBtn.addEventListener('click', () => {
+                currentIndex++;
+                showImage(currentIndex);
+            });
+
+            closeBtn.addEventListener('click', () => {
+                lightbox.style.display = 'none';
+            });
+
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    lightbox.style.display = 'none';
+                }
+            });
+        }
+    </script>
 </body>
 </html>
