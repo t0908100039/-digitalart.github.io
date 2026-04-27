@@ -77,12 +77,12 @@
             letter-spacing: 1px;
         }
 
-        /* 新增：區塊文字說明的樣式 */
+        /* 區塊文字說明的樣式 */
         .showcase-desc {
             color: #cccccc;
             font-size: 16px;
             line-height: 1.6;
-            margin-top: -10px; /* 稍微往上拉近標題的距離 */
+            margin-top: -10px;
             margin-bottom: 5px;
         }
 
@@ -193,10 +193,21 @@
         </div>
 
         <div class="showcase-card">
+            <h3 class="showcase-title">AI 建模</h3>
+            <div class="gallery-grid">
+                <img src="ai14.png" alt="ai14">
+                <img src="ai15.png" alt="ai15">
+                <img src="ai16.png" alt="ai16">
+                <img src="ai17.png" alt="ai17">
+                <img src="ai18.png" alt="ai18">
+            </div>
+        </div>
+
+        <div class="showcase-card">
             <h3 class="showcase-title">AI 區</h3>
             <p class="showcase-desc">使用 ComfyUI 本地部署製作的可用於 3D 貼圖，與線上 AI 工具不同的是沒有版權與費用的考量。</p>
             
-            <div class="gallery-grid" id="ai-gallery">
+            <div class="gallery-grid">
                 <img src="ai1.png" alt="ai1">
                 <img src="ai2.png" alt="ai2">
                 <img src="ai3.png" alt="ai3">
@@ -230,8 +241,8 @@
         const prevBtn = document.getElementById('lightbox-prev');
         const nextBtn = document.getElementById('lightbox-next');
         
-        // 抓取 ai-gallery 裡面的所有圖片
-        const images = document.querySelectorAll('#ai-gallery img');
+        // 修改這裡：抓取「所有」 class 為 gallery-grid 裡面的圖片
+        const images = document.querySelectorAll('.gallery-grid img');
         let currentIndex = 0; // 紀錄現在正在看哪一張圖的號碼
 
         // 給每張縮圖加上「點擊」事件
